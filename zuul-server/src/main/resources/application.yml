@@ -1,0 +1,54 @@
+#server.port=8762
+#eureka.client.fetch-registry=false
+#spring.application.name=API-GATEWAY
+#eureka.client.service-url.default-zone=http://localhost:8761/eureka/
+#
+#spring.main.web-application-type=reactive
+#
+##management.endpoints.web.exposure.include=*
+#
+#spring.cloud.gateway.routes.-id=fraud
+#spring.cloud.gateway.routes[0].uri=lb://fraud
+#spring.cloud.gateway.routes[0].predicates[0]=Path=/api/v1/fraud-check/**
+#
+#
+#spring.cloud.gateway.routes[1].id=customer
+#spring.cloud.gateway.routes[1].uri=lb://customer
+#spring.cloud.gateway.routes[1].predicates[0]=/Path=api/v1/customer/*spring
+
+spring:
+  application:
+    name: zuul
+
+server:
+  port: 8762
+zuul:
+  routes:
+    fraud:
+      path: /api/v1/fraud-check/**
+#      url: http://localhost:8082/api/v1/fraud-check
+      service-id: fraud
+      strip-prefix: true
+
+
+    customer:
+      path: /api/v1/customer/**
+#      url: http://localhost:8080/api/v1/customer
+      service-id: customer
+      strip-prefix: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+management:
+  zipkin:
+    tracing:
+      endpoint: http://127.0.0.1:9411
+  tracing:
+    sampling:
+      probability: 1.0
