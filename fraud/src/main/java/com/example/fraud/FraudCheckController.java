@@ -1,5 +1,6 @@
 package com.example.fraud;
 
+import com.rose.client.fraud.FraudCheckResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ public class FraudCheckController {
     @GetMapping("{customerId}")
     public FraudCheckResponse isFraudster(@PathVariable("customerId") Integer customerId){
         boolean isFraudulentCustomer=fraudCheckService.isFraudulentCustomer(customerId);
-        return new FraudCheckResponse(isFraudulentCustomer);
-//        return new Fra
+        return new FraudCheckResponse(false);
+//        return new FraudCheckResponse()
     }
 }

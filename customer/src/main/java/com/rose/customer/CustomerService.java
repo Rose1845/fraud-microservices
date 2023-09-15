@@ -1,28 +1,26 @@
 package com.rose.customer;
 
 
-import com.rose.customer.client.FraudCheckResponse;
-import com.rose.customer.client.FraudClient;
+
+
+import com.rose.client.fraud.FraudCheckResponse;
+import com.rose.client.fraud.FraudClient;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
-    private final FraudClient fraudClient;
-    @Autowired
-    public CustomerService(CustomerRepository customerRepository, RestTemplate restTemplate, FraudClient fraudClient) {
-        this.customerRepository = customerRepository;
-        this.restTemplate = restTemplate;
-        this.fraudClient = fraudClient;
-    }
+   private final FraudClient fraudClient;
+
+
+
 
     public void registerCustomer(CustomerRequest customerRequest) {
         Optional<Customer> existingCustomer = customerRepository.findByEmail(customerRequest.getEmail());
@@ -44,7 +42,7 @@ public class CustomerService {
 //                FraudCheckResponse.class, customer.getId());
         FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
         log.info("fraud check for ");
-        if(fraudCheckResponse.isFraudster){
+        if(fraudCheckResponse.isFraudster()){
             throw new IllegalStateException("fraudster");
         }
     }
