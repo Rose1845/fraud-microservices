@@ -17,6 +17,7 @@
     <modules>
         <module>customer</module>
 		<module>fraud</module>
+		<module>zuul-server</module>
 		<module>eureka-server</module>
 		<module>notification</module>
 		<module>client</module>
