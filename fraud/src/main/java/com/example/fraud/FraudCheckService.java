@@ -18,5 +18,4 @@ public class FraudCheckService {
         return false;
     }
 
-
 }
