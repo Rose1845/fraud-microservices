@@ -7,7 +7,6 @@
         <artifactId>roseservices</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.rose</groupId>
     <artifactId>inventory-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>inventory-service</name>

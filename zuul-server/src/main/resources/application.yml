@@ -10,6 +10,13 @@ eureka:
 server:
   port: 8762
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8182/realms/roseservices-realm
   application:
     name: api-gateway
   cloud:
@@ -30,3 +37,23 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/api/v1/notification/**
+
+        - id: order-service
+          uri: http://localhost:8180
+          predicates:
+            - Path=/api/order
+
+        - id: product-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/products
+
+        - id: inventory-service
+          uri: http://localhost:8181
+          predicates:
+            - Path=/api/inventory
+
+
+
+
+
